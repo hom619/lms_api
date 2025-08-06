@@ -6,7 +6,7 @@ const app = express();
 const PORT = process.env.PORT || 8000;
 
 //DB Connection
-import { dbConnect } from "./config/dbConfig.js";
+import { dbConnect } from "./src/config/dbConfig.js";
 dbConnect()
   .then(() => {
     app.listen(PORT, (err) => {
@@ -20,6 +20,11 @@ dbConnect()
 app.use(cors());
 app.use(morgan("dev"));
 app.use(express.json());
+
+//api endPoints
+import authRoute from "./src/routes/authRoute.js";
+app.use("/api/v1/auth", authRoute);
+
 //Check server status
 app.get("/", (req, res) => {
   res.json({
