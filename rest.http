@@ -10,11 +10,11 @@ POST {{rootUrl}}/api/v1/auth/register
 Content-Type: application/json
 
 { 
-    "fName": "HOM",
-    "lName": "GURUNG",
-    "email":"hom@gmail.com",
-    "phone": "0452099516",
-    "password": "lkshsd"
+    "fName": "Rohit",
+    "lName": "Shrestha",
+    "email":"rohitshrestha123@gmail.com",
+    "phone": "0545343235",
+    "password": "roskfkf"
 
 }
 
