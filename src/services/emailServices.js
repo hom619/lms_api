@@ -1,4 +1,7 @@
-import { userActivationEmail } from "./emailTemplate.js";
+import {
+  userActivatedNotification,
+  userActivationEmail,
+} from "./emailTemplate.js";
 import { emailTransporter } from "./transport.js";
 
 export const sendActivationEmail = async (obj) => {
@@ -8,5 +11,13 @@ export const sendActivationEmail = async (obj) => {
   const transporter = emailTransporter();
   const info = await transporter.sendMail(userActivationEmail(obj));
   console.log(info.messageId);
+  return info.messageId;
+};
+export const sendActivatedNotificationEmail = async (obj) => {
+  //get the transporter
+
+  //get the template
+  const transporter = emailTransporter();
+  const info = await transporter.sendMail(userActivatedNotification(obj));
   return info.messageId;
 };

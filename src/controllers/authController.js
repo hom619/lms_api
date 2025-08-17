@@ -1,7 +1,13 @@
 import { responseClient } from "../middlewares/responseClient.js";
-import { createNewSession } from "../models/session/sessionModel.js";
-import { createNewUser } from "../models/users/usersModel.js";
-import { sendActivationEmail } from "../services/emailServices.js";
+import {
+  createNewSession,
+  deleteSession,
+} from "../models/session/sessionModel.js";
+import { createNewUser, updateUser } from "../models/users/usersModel.js";
+import {
+  sendActivatedNotificationEmail,
+  sendActivationEmail,
+} from "../services/emailServices.js";
 import { hashPassword } from "../utils/bcrypt.js";
 import { v4 as uuidv4 } from "uuid";
 
@@ -36,6 +42,31 @@ export const insertNewUser = async (req, res, next) => {
       error.message = "Email already exists. Please try different email.";
       error.status = 400;
     }
+    next(error);
+  }
+};
+export const activateUser = async (req, res, next) => {
+  try {
+    const { sessionId, t } = req.body;
+    const session = await deleteSession({
+      _id: sessionId,
+      token: t,
+    });
+    if (session?._id) {
+      const user = await updateUser(
+        { email: session.association },
+        { status: "active" }
+      );
+      if (user?._id) {
+        sendActivatedNotificationEmail({ email: user.email, name: user.fName });
+        const message = "Your account has been activated. You may login now!";
+        return responseClient({ req, res, message });
+      }
+    }
+    const message = "Invalid link or token expired";
+    const statusCode = 400;
+    responseClient({ req, res, message, statusCode });
+  } catch (error) {
     next(error);
   }
 };
