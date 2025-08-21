@@ -22,7 +22,7 @@ export const insertNewUser = async (req, res, next) => {
         association: user.email,
       });
       if (session?._id) {
-        const url = `${process.env.ROOT_URL}/activate-user?id=${session._id}&&t=${session.token}`;
+        const url = `${process.env.ROOT_URL}/activate-user?sessionId=${session._id}&&t=${session.token}`;
         console.log(url);
         const emailId = await sendActivationEmail({
           email: user.email,

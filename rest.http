@@ -12,17 +12,16 @@ Content-Type: application/json
 { 
     "fName": "Hom",
     "lName": "Shrestha",
-    "email":"homu@gmail.com",
+    "email":"homug@gmail.com",
     "phone": "0545343235",
     "password": "A12#roskfkf"
 
 }
-&&t=
 ### activate user
 POST {{rootUrl}}/api/v1/auth/activate-user
 Content-Type: application/json
 
 {
-    "sessionId":"68a1d5c8cba3707e65d6ccca",
-    "t": "b582e8f0-1e86-471f-96c4-9237806b88ae"
+    "sessionId":"68a54ce9997c9862b4c5c979",
+    "t": "ec2d2573-9884-4be1-b71e-60b9d983aebe"
 }
