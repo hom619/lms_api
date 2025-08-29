@@ -10,7 +10,7 @@ POST {{rootUrl}}/api/v1/auth/register
 Content-Type: application/json
 
 { 
-    "fName": "Hom",
+    "fName": "Hm",
     "lName": "Shrestha",
     "email":"homug@gmail.com",
     "phone": "0545sd343235",
@@ -22,6 +22,15 @@ POST {{rootUrl}}/api/v1/auth/activate-user
 Content-Type: application/json
 
 {
-    "sessionId":"68a54ce9997c9862b4c5c979",
-    "t": "ec2d2573-9884-4be1-b71e-60b9d983aebe"
+    "sessionId":"SFVDFFDFFDFD",
+    "t": "3aebe"
+}
+
+### login user
+POST {{rootUrl}}/api/v1/auth/login
+Content-Type: application/json
+
+{
+    "email":"homug@gmail.com",
+    "password": "A12#roskfkf"
 }

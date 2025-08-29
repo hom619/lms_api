@@ -3,13 +3,18 @@ import {
   createNewSession,
   deleteSession,
 } from "../models/session/sessionModel.js";
-import { createNewUser, updateUser } from "../models/users/usersModel.js";
+import {
+  createNewUser,
+  getUserByEmail,
+  updateUser,
+} from "../models/users/usersModel.js";
 import {
   sendActivatedNotificationEmail,
   sendActivationEmail,
 } from "../services/emailServices.js";
-import { hashPassword } from "../utils/bcrypt.js";
+import { hashPassword, comparePassword } from "../utils/bcrypt.js";
 import { v4 as uuidv4 } from "uuid";
+import { getJWTs } from "../utils/jwt.js";
 
 export const insertNewUser = async (req, res, next) => {
   try {
@@ -69,4 +74,32 @@ export const activateUser = async (req, res, next) => {
   } catch (error) {
     next(error);
   }
+};
+export const loginUser = async (req, res, next) => {
+  try {
+    const { email, password } = req.body;
+
+    // get user by email
+    const user = await getUserByEmail(email);
+    console.log(user);
+    if (user?._id) {
+      // compare password
+      const isPasswordValid = comparePassword(password, user.password);
+      if (isPasswordValid) {
+        // create jwt token
+        const jwts = await getJWTs(email);
+        // respond to client
+        return responseClient({
+          req,
+          res,
+          message: "Login successful",
+          payload: jwts,
+        });
+      }
+    }
+
+    const message = "Invalid login credentials";
+    const statusCode = 401;
+    responseClient({ req, res, message, statusCode });
+  } catch (error) {}
 };

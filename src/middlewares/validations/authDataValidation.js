@@ -3,6 +3,7 @@ import {
   FNAME_REQ,
   LNAME_REQ,
   PASSWORD,
+  PASSWORD_REQ,
   PHONE,
   SESSIONID_REQ,
   TOKEN_REQ,
@@ -14,7 +15,7 @@ export const newUserDataValidation = (req, res, next) => {
     lName: LNAME_REQ,
     email: EMAIL_REQ,
     phone: PHONE,
-    password: PASSWORD,
+    password: PASSWORD_REQ,
   };
   return validateData({ req, res, next, obj });
 };
@@ -22,6 +23,13 @@ export const userActivationValidation = (req, res, next) => {
   const obj = {
     sessionId: SESSIONID_REQ,
     t: TOKEN_REQ,
+  };
+  return validateData({ req, res, next, obj });
+};
+export const loginDataValidation = (req, res, next) => {
+  const obj = {
+    email: EMAIL_REQ,
+    password: PASSWORD_REQ,
   };
   return validateData({ req, res, next, obj });
 };

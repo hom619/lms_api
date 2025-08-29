@@ -8,6 +8,7 @@ export const EMAIL = Joi.string().email({ minDomainSegments: 2 });
 export const EMAIL_REQ = EMAIL.required();
 export const PHONE = Joi.number();
 export const PASSWORD = Joi.string().required();
+export const PASSWORD_REQ = PASSWORD.required();
 export const SESSIONID = Joi.string().min(10).max(30);
 export const SESSIONID_REQ = SESSIONID.required();
 export const TOKEN = Joi.string().min(10);
