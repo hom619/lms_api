@@ -34,3 +34,8 @@ Content-Type: application/json
     "email":"homug@gmail.com",
     "password": "A12#roskfkf"
 }
+### Get user profile
+
+GET {{rootUrl}}/api/v1/users/profile
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImhvbXVnQGdtYWlsLmNvbSIsImlhdCI6MTc1Njk4Njc5NCwiZXhwIjoxNzU2OTg3Njk0fQ.36M9nblrxciihKbGI9d0XvNA9B7M-JAnxIv5Fef67zE
+
