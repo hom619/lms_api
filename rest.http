@@ -37,5 +37,8 @@ Content-Type: application/json
 ### Get user profile
 
 GET {{rootUrl}}/api/v1/users/profile
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImhvbXVnQGdtYWlsLmNvbSIsImlhdCI6MTc1Njk4Njc5NCwiZXhwIjoxNzU2OTg3Njk0fQ.36M9nblrxciihKbGI9d0XvNA9B7M-JAnxIv5Fef67zE
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImhvbXVnQGdtYWlsLmNvbSIsImlhdCI6MTc1Njk4OTQxNCwiZXhwIjoxNzU2OTkwMzE0fQ.UqLobVW_xLpzkPL5I61vTKyDkTPp36HBWoNutKUMgpw
 
+### Renew access JWT
+GET {{rootUrl}}/api/v1/auth/renew-jwt
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImhvbXVnQGdtYWlsLmNvbSIsImlhdCI6MTc2MjU3OTQ2NSwiZXhwIjoxNzY1MTcxNDY1fQ.ezEXo6DIsHanvzFJmsNVGNFwPb1Xua6FTJeMYK_VtRE

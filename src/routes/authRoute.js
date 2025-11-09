@@ -4,6 +4,7 @@ import {
   insertNewUser,
   loginUser,
 } from "../controllers/authController.js";
+import { renewAccessJWTMiddleware } from "../middlewares/authMiddleware.js";
 import {
   newUserDataValidation,
   userActivationValidation,
@@ -16,4 +17,5 @@ const router = express.Router();
 router.post("/register", newUserDataValidation, insertNewUser);
 router.post("/activate-user", userActivationValidation, activateUser);
 router.post("/login", loginDataValidation, loginUser);
+router.get("/renew-jwt", renewAccessJWTMiddleware);
 export default router;

@@ -18,7 +18,7 @@ export const createAccessJWT = async (email) => {
   return newSession?._id ? token : null;
 };
 //decode jwt token
-export const verifyJWT = (token) => {
+export const verifyAccessJWT = (token) => {
   try {
     return jwt.verify(token, process.env.ACCESSJWT_SECRET);
   } catch (error) {
@@ -38,6 +38,13 @@ export const createRefreshJWT = async (email) => {
   return user?._id ? refreshJWT : null;
 };
 //decode refresh token
+export const verifyRefreshJWT = (token) => {
+  try {
+    return jwt.verify(token, process.env.REFRESHJWT_SECRET);
+  } catch (error) {
+    return error.message;
+  }
+};
 export const getJWTs = async (email) => {
   return {
     accessJWT: await createAccessJWT(email),
