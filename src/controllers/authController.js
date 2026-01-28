@@ -1,4 +1,5 @@
 import { responseClient } from "../middlewares/responseClient.js";
+import { generateRandomOTP } from "../utils/randomGenerator.js";
 import {
   createNewSession,
   deleteManySessions,
@@ -10,6 +11,7 @@ import {
   updateUser,
 } from "../models/users/usersModel.js";
 import {
+  passwordResetOTPNotificationEmail,
   sendActivatedNotificationEmail,
   sendActivationEmail,
 } from "../services/emailServices.js";
@@ -113,6 +115,38 @@ export const logoutUser = async (req, res, next) => {
     //remove the accessJWT from session Table
     await deleteManySessions({ association: email });
     responseClient({ req, res, message: "Logout successful" });
+  } catch (error) {
+    next(error);
+  }
+};
+export const generateOTP = async (req, res, next) => {
+  try {
+    // Get user by email
+    const { email } = req.body;
+    const user = typeof email === "string" ? await getUserByEmail(email) : null;
+    if (user?._id) {
+      // Generate OTP
+      const otp = generateRandomOTP();
+      console.log(otp);
+      // store in session Table
+      const session = await createNewSession({
+        token: otp,
+        association: email,
+        expire: new Date(Date.now() + 1000 * 60 * 5), // 5 minutes
+      });
+      if (session?._id) {
+        console.log(session);
+        const info = await passwordResetOTPNotificationEmail({
+          email,
+          name: user.fName,
+          otp,
+        });
+        console.log(info);
+      }
+      // Send OTP to user email
+    }
+
+    responseClient({ req, res, message: "OTP is sent to your email" });
   } catch (error) {
     next(error);
   }
