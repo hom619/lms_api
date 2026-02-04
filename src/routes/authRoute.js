@@ -5,6 +5,7 @@ import {
   insertNewUser,
   loginUser,
   logoutUser,
+  resetNewPassword,
 } from "../controllers/authController.js";
 import {
   renewAccessJWTMiddleware,
@@ -14,6 +15,7 @@ import {
   newUserDataValidation,
   userActivationValidation,
   loginDataValidation,
+  newResetPasswordValidation,
 } from "../middlewares/validations/authDataValidation.js";
 const router = express.Router();
 
@@ -24,5 +26,6 @@ router.post("/activate-user", userActivationValidation, activateUser);
 router.post("/login", loginDataValidation, loginUser);
 router.get("/renew-jwt", renewAccessJWTMiddleware);
 router.get("/logout", userAuthMiddleware, logoutUser);
-router.get("/otp", generateOTP);
+router.post("/otp", generateOTP);
+router.post("/reset-password", newResetPasswordValidation, resetNewPassword);
 export default router;

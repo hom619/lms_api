@@ -48,3 +48,20 @@ export const passwordResetOTPTemplate = ({ email, name, otp }) => {
 Thank you`, // HTML body
   };
 };
+export const newPasswordResetNotificationTemplate = ({ email, name, otp }) => {
+  return {
+    from: `"Library" <${process.env.SMTP_EMAIL}>`,
+    to: email,
+    subject: "Your password has been changed.",
+    text: `Dear ${name}! Your password has been updated successfully. If this wasn't you, please contact us immediately. `, // plain‑text body
+    html: `<p>Dear ${name}!
+</p>
+<br/>
+
+<p>Your password has been updated successfully.</p>
+<p>If this wasn't you then please contact us immediately.</p>
+<br/>
+<br/>
+Thank you`, // HTML body
+  };
+};

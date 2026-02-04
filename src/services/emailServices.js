@@ -1,4 +1,5 @@
 import {
+  newPasswordResetNotificationTemplate,
   passwordResetOTPTemplate,
   userActivatedNotification,
   userActivationEmail,
@@ -28,5 +29,14 @@ export const passwordResetOTPNotificationEmail = async (obj) => {
   const transporter = emailTransporter();
   //get the template
   const info = await transporter.sendMail(passwordResetOTPTemplate(obj));
+  return info.messageId;
+};
+export const newPasswordResetNotificationEmail = async (obj) => {
+  //get the transporter
+  const transporter = emailTransporter();
+  //get the template
+  const info = await transporter.sendMail(
+    newPasswordResetNotificationTemplate(obj),
+  );
   return info.messageId;
 };

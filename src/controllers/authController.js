@@ -4,6 +4,7 @@ import {
   createNewSession,
   deleteManySessions,
   deleteSession,
+  getSession,
 } from "../models/session/sessionModel.js";
 import {
   createNewUser,
@@ -11,6 +12,7 @@ import {
   updateUser,
 } from "../models/users/usersModel.js";
 import {
+  newPasswordResetNotificationEmail,
   passwordResetOTPNotificationEmail,
   sendActivatedNotificationEmail,
   sendActivationEmail,
@@ -63,7 +65,7 @@ export const activateUser = async (req, res, next) => {
     if (session?._id) {
       const user = await updateUser(
         { email: session.association },
-        { status: "active" }
+        { status: "active" },
       );
       if (user?._id) {
         sendActivatedNotificationEmail({ email: user.email, name: user.fName });
@@ -147,6 +149,39 @@ export const generateOTP = async (req, res, next) => {
     }
 
     responseClient({ req, res, message: "OTP is sent to your email" });
+  } catch (error) {
+    next(error);
+  }
+};
+export const resetNewPassword = async (req, res, next) => {
+  try {
+    const { email, password, otp } = req.body;
+    // check otp in session table
+    const session = await getSession({
+      token: otp,
+      association: email,
+    });
+    if (session?._id) {
+      //encrypt the password
+      const hashPass = hashPassword(password);
+      // update user password
+      const user = await updateUser({ email }, { password: hashPass });
+      if (user?._id) {
+        //send email notification
+        newPasswordResetNotificationEmail({ name: user.fName, email });
+        return responseClient({
+          req,
+          res,
+          message: "Your password has been updated. You may login now.",
+        });
+      }
+    }
+    responseClient({
+      req,
+      res,
+      statusCode: 400,
+      message: "Invalid token or token is expired",
+    });
   } catch (error) {
     next(error);
   }
