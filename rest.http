@@ -32,7 +32,7 @@ Content-Type: application/json
 
 {
     "email":"homug@gmail.com",
-    "password": "A12#dftew"
+    "password": "#Extreme76#"
 }
 ### Get user profile
 
@@ -59,4 +59,28 @@ Content-Type: application/json
     "email": "homug@gmail.com",
     "password": "A12#dftew",
     "otp": 8379
+}
+
+
+### Books API
+
+### GET Books
+
+GET {{rootUrl}}/api/v1/books
+
+### Insert new book
+
+POST {{rootUrl}}/api/v1/books
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImhvbXVnQGdtYWlsLmNvbSIsImlhdCI6MTc3MzY2OTk2MSwiZXhwIjoxNzczNjcwODYxfQ.iiF31-m_z_nGbl0GpWKiv7dr9DJcNVHCbrz1vPnWdRo
+
+{
+    "title": "Theory of time",
+    "year": 2025,
+    "author": "Stephen Hawking",
+    "status": "In Store",
+    "imgUrl": "https://example.com/images/clean-code.jpg",
+    "isbn": "1548584850",
+    "genre": "Science Fiction",
+    "description": "Book about black holes and universe"
 }

@@ -24,9 +24,11 @@ app.use(express.json());
 //api endPoints
 import authRoute from "./src/routes/authRoute.js";
 import usersRoute from "./src/routes/usersRoute.js";
+import booksRoute from "./src/routes/booksRoute.js";
 import { errorHandler } from "./src/middlewares/errorHandler.js";
 app.use("/api/v1/auth", authRoute);
 app.use("/api/v1/users", usersRoute);
+app.use("/api/v1/books", booksRoute);
 import { responseClient } from "./src/middlewares/responseClient.js";
 //Check server status
 app.get("/", (req, res) => {
