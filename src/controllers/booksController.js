@@ -4,13 +4,13 @@ import {
   getAllPublicBooks,
   getAllBooks,
 } from "../models/book/bookModel.js";
-
+import slugify from "slugify";
 export const insertNewBook = async (req, res, next) => {
   try {
     const { fName, _id } = req.userInfo;
     const obj = {
       ...req.body,
-
+      slug: slugify(req.body.title, { lower: true }),
       addedBy: {
         name: fName,
         adminId: _id,
@@ -34,6 +34,14 @@ export const insertNewBook = async (req, res, next) => {
           statusCode: 401,
         });
   } catch (error) {
+    if (error.message.includes("E11000 duplicate key")) {
+      responseClient({
+        req,
+        res,
+        message: "Duplicate data found " + JSON.stringify(error.keyValue),
+        statusCode: 400,
+      });
+    }
     next(error);
   }
 };
