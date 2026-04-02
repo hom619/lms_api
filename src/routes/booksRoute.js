@@ -1,14 +1,26 @@
 import express from "express";
-import { insertNewBook } from "../controllers/booksController.js";
+import {
+  getAllBooksController,
+  getAllPublicBooksController,
+  insertNewBook,
+} from "../controllers/booksController.js";
 import {
   adminAuthMiddleware,
   userAuthMiddleware,
 } from "../middlewares/authMiddleware.js";
 import { newBookDataValidation } from "../middlewares/validations/bookDataValidation.js";
+import { getAllBooks } from "../models/book/bookModel.js";
 const router = express.Router();
-router.get("/", (req, res, next) => {
-  res.json({ message: "TODO" });
-});
+//Get all public books which are active
+router.get("/", getAllPublicBooksController);
+
+//Get all the books in the database i.e from admin access
+router.get(
+  "/admin",
+  userAuthMiddleware,
+  adminAuthMiddleware,
+  getAllBooksController,
+);
 
 // Insert New Book
 router.post(

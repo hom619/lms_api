@@ -1,5 +1,9 @@
 import { responseClient } from "../middlewares/responseClient.js";
-import { createNewBook } from "../models/book/bookModel.js";
+import {
+  createNewBook,
+  getAllPublicBooks,
+  getAllBooks,
+} from "../models/book/bookModel.js";
 
 export const insertNewBook = async (req, res, next) => {
   try {
@@ -29,6 +33,32 @@ export const insertNewBook = async (req, res, next) => {
           message: "Unable to add book details. Please try agin",
           statusCode: 401,
         });
+  } catch (error) {
+    next(error);
+  }
+};
+export const getAllPublicBooksController = async (req, res, next) => {
+  try {
+    const payload = await getAllPublicBooks();
+    responseClient({
+      req,
+      res,
+      message: "Here are the list of public books",
+      payload,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+export const getAllBooksController = async (req, res, next) => {
+  try {
+    const payload = await getAllBooks();
+    responseClient({
+      req,
+      res,
+      message: "Here are the list of all books",
+      payload,
+    });
   } catch (error) {
     next(error);
   }
