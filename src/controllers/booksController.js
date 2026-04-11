@@ -3,6 +3,8 @@ import {
   createNewBook,
   getAllPublicBooks,
   getAllBooks,
+  updateBook,
+  deleteBook,
 } from "../models/book/bookModel.js";
 import slugify from "slugify";
 export const insertNewBook = async (req, res, next) => {
@@ -42,6 +44,54 @@ export const insertNewBook = async (req, res, next) => {
         statusCode: 400,
       });
     }
+    next(error);
+  }
+};
+export const updateBookController = async (req, res, next) => {
+  try {
+    const { fName, _id } = req.userInfo;
+    const obj = {
+      ...req.body,
+      slug: slugify(req.body.title, { lower: true }),
+      lastUpdatedBy: {
+        name: fName,
+        adminId: _id,
+      },
+    };
+    const book = await updateBook(obj);
+    book._id
+      ? responseClient({
+          req,
+          res,
+          message: "The book details have been updated successfully",
+        })
+      : responseClient({
+          req,
+          res,
+          message: "Unable to update book details. Please try agin",
+          statusCode: 400,
+        });
+  } catch (error) {
+    next(error);
+  }
+};
+export const deleteBookController = async (req, res, next) => {
+  try {
+    const { _id } = req.params;
+    const book = await deleteBook(_id);
+    book?._id
+      ? responseClient({
+          req,
+          res,
+          message: "The book has been deleted successfully",
+        })
+      : responseClient({
+          req,
+          res,
+          message: "Unable to delete book. Please try agin",
+          statusCode: 400,
+        });
+  } catch (error) {
     next(error);
   }
 };

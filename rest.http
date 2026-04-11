@@ -87,3 +87,22 @@ Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImhvbXVnQ
     "genre": "Science Fiction",
     "description": "Book about black holes and universe"
 }
+
+### UPDATE BOOKS
+
+PUT {{rootUrl}}/api/v1/books
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImhvbXVnQGdtYWlsLmNvbSIsImlhdCI6MTc3NTczOTcxNSwiZXhwIjoxNzc1NzQwNjE1fQ.ifkJJuNb9TNmwl6EfZX9u3QUj5Sa2XZAWunpkKQcHQE
+
+{
+    "title": "Theory of time",
+    "year": 2025,
+    "author": "Stephen Hawking",
+    "imgUrl": "https://example.com/images/clean-code.jpg",
+    "isbn": "1548584859",
+    "genre": "Science Fiction",
+    "status": "Active",
+    "expectedAvailable": "2022-01-01",
+    "description": "Book about black holes and universe",
+    "_id": "69cdff0d8794dd57c2c3995c"
+}

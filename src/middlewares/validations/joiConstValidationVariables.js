@@ -30,3 +30,9 @@ export const ISBN = Joi.string()
     "string.pattern.base": "ISBN is not in the valid format",
   });
 export const ISBN_REQ = ISBN.required();
+export const _ID = Joi.string();
+export const _ID_REQ = Joi.string().required();
+export const STATUS = Joi.string().valid("Active", "Inactive");
+export const STATUS_REQ = STATUS.required();
+export const EXPECTED_AVAILABLE = Joi.date().allow(null, "");
+export const EXPECTED_AVAILABLE_REQ = EXPECTED_AVAILABLE.required();

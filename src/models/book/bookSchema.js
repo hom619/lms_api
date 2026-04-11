@@ -3,7 +3,7 @@ const bookSchema = new mongoose.Schema(
   {
     status: {
       type: String,
-      default: "inactive",
+      default: "InActive",
     },
     title: {
       type: String,
@@ -28,7 +28,7 @@ const bookSchema = new mongoose.Schema(
       required: true,
     },
     isbn: {
-      type: Number,
+      type: String,
       unique: true,
       index: 1,
       required: true,
@@ -39,7 +39,7 @@ const bookSchema = new mongoose.Schema(
     },
     available: {
       type: Boolean,
-      default: true,
+      default: false,
     },
     averageRating: {
       type: Number,
