@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+
 const bookSchema = new mongoose.Schema(
   {
     status: {
@@ -27,6 +28,12 @@ const bookSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    imageList: [
+      {
+        type: String,
+        default: [],
+      },
+    ],
     isbn: {
       type: String,
       unique: true,

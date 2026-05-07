@@ -36,3 +36,5 @@ export const STATUS = Joi.string().valid("Active", "Inactive");
 export const STATUS_REQ = STATUS.required();
 export const EXPECTED_AVAILABLE = Joi.date().allow(null, "");
 export const EXPECTED_AVAILABLE_REQ = EXPECTED_AVAILABLE.required();
+export const STR_ARRAY = Joi.array().items(Joi.string());
+export const STR_ARRAY_REQ = STR_ARRAY.required();

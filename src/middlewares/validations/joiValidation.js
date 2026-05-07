@@ -1,5 +1,6 @@
 import Joi from "joi";
 import { responseClient } from "../responseClient.js";
+import { deleteUploadedFiles } from "../../utils/fileUtils.js";
 export const validateData = ({ req, res, next, obj }) => {
   // "fName": "Hom",
   //     "lName": "Shrestha",
@@ -11,6 +12,10 @@ export const validateData = ({ req, res, next, obj }) => {
   // pass your data, req.body, to the schema
   const { error } = schema.validate(req.body);
   if (error) {
+    if (req.file || Array.isArray(req.files)) {
+      // proceed for deleting the uploaded file
+      deleteUploadedFiles(req);
+    }
     return responseClient({
       req,
       res,

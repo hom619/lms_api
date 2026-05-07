@@ -14,7 +14,8 @@ import {
   newBookDataValidation,
   updateBookDataValidation,
 } from "../middlewares/validations/bookDataValidation.js";
-import { getAllBooks } from "../models/book/bookModel.js";
+import { upload } from "../utils/multer.js";
+
 const router = express.Router();
 //Get all public books which are active
 router.get("/", getAllPublicBooksController);
@@ -32,7 +33,10 @@ router.post(
   "/",
   userAuthMiddleware,
   adminAuthMiddleware,
+  upload.single("image"),
+  // upload.array("image", 2),
   newBookDataValidation,
+
   insertNewBook,
 );
 // Edit Book
@@ -40,6 +44,7 @@ router.put(
   "/",
   userAuthMiddleware,
   adminAuthMiddleware,
+  upload.array("images", 2),
   updateBookDataValidation,
   updateBookController,
 );

@@ -20,7 +20,8 @@ dbConnect()
 app.use(cors());
 app.use(morgan("dev"));
 app.use(express.json());
-
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static("public"));
 //api endPoints
 import authRoute from "./src/routes/authRoute.js";
 import usersRoute from "./src/routes/usersRoute.js";

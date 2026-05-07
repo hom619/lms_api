@@ -6,10 +6,12 @@ import {
   updateBook,
   deleteBook,
 } from "../models/book/bookModel.js";
+import { deleteFile, deleteUploadedFiles } from "../utils/fileUtils.js";
 import slugify from "slugify";
 export const insertNewBook = async (req, res, next) => {
   try {
     const { fName, _id } = req.userInfo;
+    const imagePath = req.file?.path;
     const obj = {
       ...req.body,
       slug: slugify(req.body.title, { lower: true }),
@@ -21,6 +23,8 @@ export const insertNewBook = async (req, res, next) => {
         name: fName,
         adminId: _id,
       },
+      imgUrl: imagePath,
+      imageList: [imagePath],
     };
     const book = await createNewBook(obj);
     book._id
@@ -37,6 +41,10 @@ export const insertNewBook = async (req, res, next) => {
         });
   } catch (error) {
     if (error.message.includes("E11000 duplicate key")) {
+      if (req.file || Array.isArray(req.files)) {
+        // proceed for deleting the uploaded file
+        deleteUploadedFiles(req);
+      }
       responseClient({
         req,
         res,
@@ -50,6 +58,28 @@ export const insertNewBook = async (req, res, next) => {
 export const updateBookController = async (req, res, next) => {
   try {
     const { fName, _id } = req.userInfo;
+    req.body.imageList = req.body.imageList.split(",");
+    //remove imageToDelete from imageList
+
+    if (req.body.imageToDelete?.length) {
+      if (Array.isArray(req.body.imageToDelete)) {
+        req.body.imageList = req.body.imageList.filter(
+          (img) => !req.body.imageToDelete.includes(img),
+        );
+        req.body.imageToDelete.map((img) => deleteFile(img));
+      } else {
+        req.body.imageList = req.body.imageList.filter(
+          (img) => img !== req.body.imageToDelete,
+        );
+        deleteFile(req.body.imageToDelete);
+      }
+    }
+    if (Array.isArray(req.files)) {
+      req.body.imageList = [
+        ...req.body.imageList,
+        ...req.files.map((obj) => obj.path),
+      ];
+    }
     const obj = {
       ...req.body,
       slug: slugify(req.body.title, { lower: true }),
@@ -79,18 +109,21 @@ export const deleteBookController = async (req, res, next) => {
   try {
     const { _id } = req.params;
     const book = await deleteBook(_id);
-    book?._id
-      ? responseClient({
-          req,
-          res,
-          message: "The book has been deleted successfully",
-        })
-      : responseClient({
-          req,
-          res,
-          message: "Unable to delete book. Please try agin",
-          statusCode: 400,
-        });
+    if (book?._id) {
+      book.imageList.map((img) => deleteFile(img));
+      responseClient({
+        req,
+        res,
+        message: "The book has been deleted successfully",
+      });
+    } else {
+      responseClient({
+        req,
+        res,
+        message: "Unable to delete book. Please try agin",
+        statusCode: 400,
+      });
+    }
   } catch (error) {
     next(error);
   }
