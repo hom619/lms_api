@@ -5,6 +5,7 @@ import {
   getAllBooks,
   updateBook,
   deleteBook,
+  getSingleBook,
 } from "../models/book/bookModel.js";
 import { deleteFile, deleteUploadedFiles } from "../utils/fileUtils.js";
 import slugify from "slugify";
@@ -148,6 +149,20 @@ export const getAllBooksController = async (req, res, next) => {
       req,
       res,
       message: "Here are the list of all books",
+      payload,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+export const getSingleBookController = async (req, res, next) => {
+  try {
+    const { slug } = req.params;
+    const payload = await getSingleBook({ slug, status: "Active" });
+    responseClient({
+      req,
+      res,
+      message: "Here is the book",
       payload,
     });
   } catch (error) {

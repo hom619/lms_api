@@ -3,6 +3,7 @@ import {
   deleteBookController,
   getAllBooksController,
   getAllPublicBooksController,
+  getSingleBookController,
   insertNewBook,
   updateBookController,
 } from "../controllers/booksController.js";
@@ -17,8 +18,12 @@ import {
 import { upload } from "../utils/multer.js";
 
 const router = express.Router();
+
 //Get all public books which are active
 router.get("/", getAllPublicBooksController);
+
+//Get single book using slug
+router.get("/public/:slug", getSingleBookController);
 
 //Get all the books in the database i.e from admin access
 router.get(

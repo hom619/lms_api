@@ -68,6 +68,9 @@ Content-Type: application/json
 
 GET {{rootUrl}}/api/v1/books
 
+### Get single book
+GET {{rootUrl}}/api/v1/books/public/atomic-habits
+
 ### GET Books by admin
 GET {{rootUrl}}/api/v1/books/admin
 Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImhvbXVnQGdtYWlsLmNvbSIsImlhdCI6MTc3NDc4NTg4NSwiZXhwIjoxNzc0Nzg2Nzg1fQ.I2avoDJT6mIAmIUk33fr1OupJaQT3tXKm8NCNx-tDQU
