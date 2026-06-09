@@ -2,13 +2,10 @@ import Joi from "joi";
 import { responseClient } from "../responseClient.js";
 import { deleteUploadedFiles } from "../../utils/fileUtils.js";
 export const validateData = ({ req, res, next, obj }) => {
-  // "fName": "Hom",
-  //     "lName": "Shrestha",
-  //     "email":"homug@gmail.com",
-  //     "phone": "0545343235",
-  //     "password": "A12#roskfkf"
   //create schema or rules
-  const schema = Joi.object(obj);
+  const schema = Array.isArray(req.body)
+    ? Joi.array().items(obj).min(1).required()
+    : Joi.object(obj);
   // pass your data, req.body, to the schema
   const { error } = schema.validate(req.body);
   if (error) {
