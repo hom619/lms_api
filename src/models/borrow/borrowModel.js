@@ -12,3 +12,7 @@ export const createBorrows = (borrowArg) => {
 export const getBorrows = (filter) => {
   return borrowSchema.find(filter);
 };
+
+export const updateBorrow = (filter, obj) => {
+  return borrowSchema.findOneAndUpdate(filter, obj);
+};

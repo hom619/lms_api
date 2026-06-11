@@ -2,6 +2,7 @@ import express from "express";
 import {
   getBorrowsController,
   insertNewBorrowController,
+  returnBorrowController,
 } from "../controllers/BorrowController.js";
 import {
   adminAuthMiddleware,
@@ -28,4 +29,6 @@ router.get(
 
 // return user specific borrows list only
 router.get("/user", userAuthMiddleware, getBorrowsController);
+
+router.patch("/", userAuthMiddleware, returnBorrowController);
 export default router;
