@@ -128,3 +128,18 @@ Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImhvbXVnQ
 GET {{rootUrl}}/api/v1/borrows/admin
 Content-Type: application/json
 Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImhvbXVnQGdtYWlsLmNvbSIsImlhdCI6MTc4MDU1NDUwNSwiZXhwIjoxNzgwNTU1NDA1fQ.M92KGuiQ1yhTkSZ6yUre-dQeLkD_RN_d_vpl43Recqk
+
+### POST NEW REVIEW
+
+POST {{rootUrl}}/api/v1/reviews
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImhvbXVnQGdtYWlsLmNvbSIsImlhdCI6MTc4MTM1NTM1NCwiZXhwIjoxNzgxMzU2MjU0fQ.lrQgiCyGOpHy_Qn01ExafzQjBCXsY6IFntjAc3-wq90
+
+{
+    "bookId": "69fc8da7ea881a766b8c8af3",
+    "borrowId": "6a2a85158a36b1fb584c2293",
+    "title": "Test review title",
+        "rating": 5,
+    "reviewMessage": "Amazing Book"
+    
+}

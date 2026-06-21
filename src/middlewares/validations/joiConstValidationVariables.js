@@ -38,3 +38,5 @@ export const EXPECTED_AVAILABLE = Joi.date().allow(null, "");
 export const EXPECTED_AVAILABLE_REQ = EXPECTED_AVAILABLE.required();
 export const STR_ARRAY = Joi.array().items(Joi.string());
 export const STR_ARRAY_REQ = STR_ARRAY.required();
+export const RATING = Joi.number().integer().min(1).max(5);
+export const RATING_REQ = RATING.required();
